@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Alert;
+use App\Enums\Visibility;
 use App\Models\Answer;
 use App\Models\Question;
 use App\Models\Set;
@@ -13,7 +14,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
-use App\Enums\Visibility;
 
 class TestController extends Controller
 {

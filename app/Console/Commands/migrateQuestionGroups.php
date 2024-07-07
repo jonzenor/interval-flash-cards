@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Group;
 use App\Models\Question;
 use App\Models\Set;
-use App\Models\Group;
 use Illuminate\Console\Command;
 
 class migrateQuestionGroups extends Command
@@ -26,12 +26,12 @@ class migrateQuestionGroups extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $questions = Question::where('group', '!=', null)->get();
-        $sets = array();
+        $sets = [];
 
-        foreach($questions as $question) {
+        foreach ($questions as $question) {
             $set = null;
 
             if (array_key_exists($question->set_id, $sets)) {
@@ -44,16 +44,17 @@ class migrateQuestionGroups extends Command
             // See if there is already a new group name that matches the group
             $group = Group::where('set_id', $set->id)->where('name', '=', $question->group)->first();
 
-            if (!$group) {
+            if (! $group) {
                 // Create the group
-                $group = new Group(); 
+                $group = new Group();
                 $group->set_id = $set->id;
                 $group->name = $question->group;
                 $group->save();
             }
 
-            if (!$group) {
+            if (! $group) {
                 $this->error('Group not found and not created...');
+
                 continue;
             }
 
@@ -61,7 +62,7 @@ class migrateQuestionGroups extends Command
             $question->group = null;
             $question->save();
 
-            $this->info('Updated Question ' . $question->id . ' to use group ' . $group->name . ' : ' . $group->id);
+            $this->info('Updated Question '.$question->id.' to use group '.$group->name.' : '.$group->id);
         }
     }
 }

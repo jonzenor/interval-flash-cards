@@ -7,8 +7,11 @@ use Illuminate\View\Component;
 class Actions extends Component
 {
     public $primary;
+
     public $secondary;
+
     public $primaryLink;
+
     public $secondaryLink;
 
     /**
@@ -16,7 +19,7 @@ class Actions extends Component
      *
      * @return void
      */
-    public function __construct($primary = "none", $secondary = "none", $primaryLink = "", $secondaryLink = "")
+    public function __construct($primary = 'none', $secondary = 'none', $primaryLink = '', $secondaryLink = '')
     {
         $this->primary = $primary;
         $this->secondary = $secondary;

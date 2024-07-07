@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\QuestionController;
-use App\Http\Controllers\TestController;
 use App\Http\Controllers\SetController;
-use App\Http\Controllers\GroupController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 /*

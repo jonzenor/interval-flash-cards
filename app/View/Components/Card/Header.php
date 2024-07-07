@@ -7,7 +7,7 @@ use Illuminate\View\Component;
 class Header extends Component
 {
     public $text;
-    
+
     /**
      * Create a new component instance.
      *

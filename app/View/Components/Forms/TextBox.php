@@ -7,7 +7,9 @@ use Illuminate\View\Component;
 class TextBox extends Component
 {
     public $name;
+
     public $label;
+
     public $value;
 
     /**
@@ -15,7 +17,7 @@ class TextBox extends Component
      *
      * @return void
      */
-    public function __construct($name, $label, $value="")
+    public function __construct($name, $label, $value = '')
     {
         $this->name = $name;
         $this->label = $label;

@@ -12,7 +12,7 @@ class Question extends Model
     protected $fillable = [
         'text',
         'set_id',
-        'group_id'
+        'group_id',
     ];
 
     public function set(): BelongsTo

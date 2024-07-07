@@ -7,8 +7,11 @@ use Illuminate\View\Component;
 class Dropdown extends Component
 {
     public $name;
+
     public $label;
+
     public $values;
+
     public $selected;
 
     /**
@@ -16,7 +19,7 @@ class Dropdown extends Component
      *
      * @return void
      */
-    public function __construct($name, $label, $values, $selected = "")
+    public function __construct($name, $label, $values, $selected = '')
     {
         $this->name = $name;
         $this->label = $label;

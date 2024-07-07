@@ -27,7 +27,7 @@ class AnswerRequest extends FormRequest
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'text.required' => 'The Answer Text is required.',

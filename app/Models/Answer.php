@@ -10,9 +10,9 @@ class Answer extends Model
     protected $fillable = [
         'text',
         'question_id',
-        'correct'
+        'correct',
     ];
-    
+
     public function question(): BelongsTo
     {
         return $this->belongsTo(\App\Models\Question::class);

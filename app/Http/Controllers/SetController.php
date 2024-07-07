@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
-use App\Models\Set;
+
 use Alert;
+use App\Models\Set;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class SetController extends Controller
 {
@@ -20,7 +21,7 @@ class SetController extends Controller
         $this->validate($request, [
             'name' => 'required|string',
             'description' => 'required|string',
-            'visibility' => 'required|integer'
+            'visibility' => 'required|integer',
         ]);
 
         $set = new Set();
@@ -36,7 +37,7 @@ class SetController extends Controller
         return redirect()->route('manage-questions', $set->id);
     }
 
-    public function update(Request $request, $id):RedirectResponse
+    public function update(Request $request, $id): RedirectResponse
     {
         if (! auth()->user()->hasRole('admin')) {
             Alert::toast('Permission Denied', 'warning');
@@ -47,7 +48,7 @@ class SetController extends Controller
         $this->validate($request, [
             'name' => 'required|string',
             'description' => 'required|string',
-            'visibility' => 'required|integer'
+            'visibility' => 'required|integer',
         ]);
 
         $set = Set::findOrFail($id);

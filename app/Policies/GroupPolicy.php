@@ -3,9 +3,8 @@
 namespace App\Policies;
 
 use App\Models\Group;
-use App\Models\User;
 use App\Models\Set;
-use Illuminate\Auth\Access\Response;
+use App\Models\User;
 
 class GroupPolicy
 {
@@ -38,7 +37,7 @@ class GroupPolicy
      */
     public function update(User $user, Group $group): bool
     {
-        return ($group->set->user_id == $user->id);
+        return $group->set->user_id == $user->id;
     }
 
     /**

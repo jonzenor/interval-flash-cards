@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Alert;
-use App\Models\Group;
-use App\Models\Set;
-use App\Models\Question;
-use App\Models\Answer;
-use Illuminate\Http\Request;
 use App\Http\Requests\CreateGroupRequest;
 use App\Http\Requests\GroupQuestionRequest;
+use App\Models\Answer;
+use App\Models\Group;
+use App\Models\Question;
+use App\Models\Set;
+use Illuminate\Http\Request;
 
 class GroupController extends Controller
 {
@@ -58,7 +58,7 @@ class GroupController extends Controller
         $this->authorize('update', $group);
 
         $questions = Question::where('group_id', $group->id)->get();
-       
+
         return view('group.show')->with([
             'group' => $group,
             'questions' => $questions,
@@ -82,7 +82,7 @@ class GroupController extends Controller
                     'set_id' => $group->set->id,
                     'group_id' => $group->id,
                 ]);
-                
+
                 Answer::create([
                     'text' => $questionData['answer'],
                     'question_id' => $question->id,
@@ -96,7 +96,8 @@ class GroupController extends Controller
         return redirect()->route('group-view', $group->id);
     }
 
-    public function editQuestion(Group $group, Question $question) {
+    public function editQuestion(Group $group, Question $question)
+    {
         $this->authorize('update', $group);
 
         return view('group.edit')->with([
@@ -105,12 +106,13 @@ class GroupController extends Controller
         ]);
     }
 
-    public function updateQuestion(GroupQuestionRequest $request, Group $group, Question $question) {
+    public function updateQuestion(GroupQuestionRequest $request, Group $group, Question $question)
+    {
         $this->authorize('update', $group);
-        
+
         $answer = Answer::where('question_id', $question->id)->first();
 
-        if (!$answer || !$question) {
+        if (! $answer || ! $question) {
             abort(404, 'Resource not found');
         }
 
