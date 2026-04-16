@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Gate;
 use App\Actions\User\RecordCreditHistory;
 use DB;
 use App\Enums\Mastery;
@@ -31,7 +32,7 @@ class ExamSetController extends Controller
 
     public function create()
     {
-        $this->authorize('create', ExamSet::class);
+        Gate::authorize('create', ExamSet::class);
 
         $visibility = Visibility::cases();
 
@@ -43,7 +44,7 @@ class ExamSetController extends Controller
     // Save a new exam set
     public function store(ExamSetDataRequest $request): RedirectResponse
     {
-        $this->authorize('create', ExamSet::class);
+        Gate::authorize('create', ExamSet::class);
 
         $validatedData = $request->validated();
         $validatedData['user_id'] = auth()->user()->id;
@@ -72,7 +73,7 @@ class ExamSetController extends Controller
 
     public function update(ExamSetDataRequest $request, ExamSet $exam): RedirectResponse
     {
-        $this->authorize('update', $exam);
+        Gate::authorize('update', $exam);
         $validatedData = $request->validated();
         $user = $this->getAuthedUser();
 
@@ -108,7 +109,7 @@ class ExamSetController extends Controller
 
     public function view(ExamSet $exam): View
     {
-        $this->authorize('view', $exam);
+        Gate::authorize('view', $exam);
 
         $examRecord = null;
 
@@ -151,7 +152,7 @@ class ExamSetController extends Controller
 
     public function edit(Request $request, ExamSet $exam)
     {
-        $this->authorize('update', $exam);
+        Gate::authorize('update', $exam);
 
         $visibility = Visibility::cases();
         $lessonFilter = $request->query('lesson_filter');
@@ -176,7 +177,7 @@ class ExamSetController extends Controller
 
     public function add(Request $request, ExamSet $exam)
     {
-        $this->authorize('update', $exam);
+        Gate::authorize('update', $exam);
 
         $request->validate([
             'question' => 'required|string',
@@ -212,7 +213,7 @@ class ExamSetController extends Controller
 
     public function question(ExamSet $exam, Question $question)
     {
-        $this->authorize('update', $exam);
+        Gate::authorize('update', $exam);
 
         return view('exam.question', [
             'exam' => $exam,
@@ -222,7 +223,7 @@ class ExamSetController extends Controller
 
     public function questionUpdate(Request $request, ExamSet $exam, Question $question)
     {
-        $this->authorize('update', $exam);
+        Gate::authorize('update', $exam);
 
         $request->validate([
             'question' => 'required|string',
@@ -253,7 +254,7 @@ class ExamSetController extends Controller
 
     public function questionDelete(ExamSet $exam, Question $question)
     {
-        $this->authorize('update', $exam);
+        Gate::authorize('update', $exam);
 
         return view('exam.deleteQuestion')->with([
             'exam' => $exam,
@@ -263,7 +264,7 @@ class ExamSetController extends Controller
 
     public function questionRemove(Request $request, ExamSet $exam, Question $question)
     {
-        $this->authorize('update', $exam);
+        Gate::authorize('update', $exam);
 
         $question->delete();
 
@@ -272,7 +273,7 @@ class ExamSetController extends Controller
 
     public function addAnswer(Request $request, ExamSet $exam, Question $question)
     {
-        $this->authorize('update', $exam);
+        Gate::authorize('update', $exam);
 
         $request->validate([
             'answer' => 'required|string',

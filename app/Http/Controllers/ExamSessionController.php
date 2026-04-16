@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Gate;
 use DB;
 use Carbon\Carbon;
 use App\Models\Set;
@@ -25,7 +26,7 @@ class ExamSessionController extends Controller
 {
     public function start(Set $examSet)
     {
-        $this->authorize('view', $examSet);
+        Gate::authorize('view', $examSet);
 
         $record = DB::table('exam_records')->where('user_id', auth()->user()->id)->where('set_id', $examSet->id)->first();
 
@@ -48,7 +49,7 @@ class ExamSessionController extends Controller
 
     public function register(Set $examSet)
     {
-        $this->authorize('view', $examSet);
+        Gate::authorize('view', $examSet);
 
         $record = DB::table('exam_records')->where('user_id', auth()->user()->id)->where('set_id', $examSet->id)->first();
 
@@ -63,7 +64,7 @@ class ExamSessionController extends Controller
 
     public function enroll(Set $examSet)
     {
-        $this->authorize('view', $examSet);
+        Gate::authorize('view', $examSet);
 
         $record = DB::table('exam_records')->where('user_id', auth()->user()->id)->where('set_id', $examSet->id)->first();
         $user = $this->getAuthedUser();
@@ -85,7 +86,7 @@ class ExamSessionController extends Controller
 
     public function configure(Set $examSet)
     {
-        $this->authorize('view', $examSet);
+        Gate::authorize('view', $examSet);
 
         $user = $this->getAuthedUser();
         AddExamQuestionsToUserRecord::execute($user, $examSet);
@@ -113,7 +114,7 @@ class ExamSessionController extends Controller
 
     public function store(ExamSessionConfigurationRequest $request, Set $examSet)
     {
-        $this->authorize('view', $examSet);
+        Gate::authorize('view', $examSet);
 
         $session = $this->getInProgressSession($examSet);
         if ($session) {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Gate;
 use Alert;
 use App\Enums\Visibility;
 use App\Models\Answer;
@@ -37,7 +38,7 @@ class TestController extends Controller
     {
         $set = Set::find($id);
 
-        $this->authorize('view', $set);
+        Gate::authorize('view', $set);
 
         return view('test.start', [
             'set' => $set,
@@ -49,7 +50,7 @@ class TestController extends Controller
         $set = Set::find($id);
         $user = Auth::user();
 
-        $this->authorize('view', $set);
+        Gate::authorize('view', $set);
 
         $request->validate([
             'number_questions' => 'required|integer|max:'.$set->questions->count(),
@@ -91,7 +92,7 @@ class TestController extends Controller
         $user = Auth::user();
         $set = Set::find($test->set_id);
 
-        $this->authorize('view', $test);
+        Gate::authorize('view', $test);
         // $this->authorize('view', $set);
 
         if ($user->id != $test->user_id) {
@@ -216,7 +217,7 @@ class TestController extends Controller
         $test = Test::find($id);
         $user = Auth::user();
 
-        $this->authorize('view', $test);
+        Gate::authorize('view', $test);
 
         if ($user->id != $test->user_id) {
             Alert::toast('Invalid Test! Don\'t be a hacker.', 'warning');

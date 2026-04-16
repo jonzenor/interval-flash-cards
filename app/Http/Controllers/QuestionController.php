@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Gate;
 use Alert;
 use App\Enums\Visibility;
 use App\Http\Requests\AnswerRequest;
@@ -49,7 +50,7 @@ class QuestionController extends Controller
             return redirect()->route('home');
         }
 
-        $this->authorize('update', $set);
+        Gate::authorize('update', $set);
 
         $visibility = Visibility::cases();
         $questions = Question::where('set_id', $set->id)->where('group_id', 0)->get();
@@ -72,7 +73,7 @@ class QuestionController extends Controller
             return redirect()->route('home');
         }
 
-        $this->authorize('update', $set);
+        Gate::authorize('update', $set);
 
         $validatedData = $request->validated();
         $validatedData['set_id'] = $set->id;
@@ -88,7 +89,7 @@ class QuestionController extends Controller
     {
         $question = Question::find($id);
 
-        $this->authorize('update', $question);
+        Gate::authorize('update', $question);
 
         return view('manage.editq', [
             'question' => $question,
@@ -99,7 +100,7 @@ class QuestionController extends Controller
     {
         $question = Question::find($id);
 
-        $this->authorize('update', $question);
+        Gate::authorize('update', $question);
 
         $question->update($request->validated());
 
@@ -119,7 +120,7 @@ class QuestionController extends Controller
             return redirect()->route('home');
         }
 
-        $this->authorize('update', $question);
+        Gate::authorize('update', $question);
 
         return view('manage.answers', [
             'question' => $question,
@@ -137,7 +138,7 @@ class QuestionController extends Controller
             return redirect()->route('home');
         }
 
-        $this->authorize('update', $question);
+        Gate::authorize('update', $question);
 
         $validatedData = $request->validated();
         $validatedData['question_id'] = $question->id;
@@ -152,7 +153,7 @@ class QuestionController extends Controller
     {
         $answer = Answer::find($id);
 
-        $this->authorize('update', $answer);
+        Gate::authorize('update', $answer);
 
         $question = Question::find($answer->question->id);
 
@@ -166,7 +167,7 @@ class QuestionController extends Controller
     {
         $answer = Answer::find($id);
 
-        $this->authorize('update', $answer);
+        Gate::authorize('update', $answer);
 
         $validatedData = $request->validated();
         $answer->update($validatedData);
@@ -180,7 +181,7 @@ class QuestionController extends Controller
     {
         $answer = Answer::find($id);
 
-        $this->authorize('update', $answer);
+        Gate::authorize('update', $answer);
 
         $question = Question::find($answer->question->id);
 
@@ -194,7 +195,7 @@ class QuestionController extends Controller
     {
         $answer = Answer::find($id);
 
-        $this->authorize('update', $answer);
+        Gate::authorize('update', $answer);
 
         $question = Question::find($answer->question->id);
 

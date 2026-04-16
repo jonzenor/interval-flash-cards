@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Gate;
 use DB;
 use App\Enums\Mastery;
 use App\Models\Answer;
@@ -20,7 +21,7 @@ class PracticeController extends Controller
             abort(404, 'Not found');
         }
 
-        $this->authorize('view', $exam);
+        Gate::authorize('view', $exam);
 
         $session = $this->getPracticeSession($exam);
 
@@ -41,8 +42,8 @@ class PracticeController extends Controller
             abort(404, 'Not found');
         }
 
-        $this->authorize('view', $exam);
-        $this->authorize('create', ExamPractice::class);
+        Gate::authorize('view', $exam);
+        Gate::authorize('create', ExamPractice::class);
 
         $request->validate([
             'filter' => 'required|string|min:1|max:32',
@@ -110,7 +111,7 @@ class PracticeController extends Controller
 
     public function review(ExamSet $exam)
     {
-        $this->authorize('view', $exam);
+        Gate::authorize('view', $exam);
 
         $session = $this->getPracticeSession($exam);
 
@@ -118,7 +119,7 @@ class PracticeController extends Controller
             return redirect()->route('practice.start', $exam);
         }
 
-        $this->authorize('view', $session);
+        Gate::authorize('view', $session);
 
         $questionArray = json_decode($session->question_order);
 
@@ -158,14 +159,14 @@ class PracticeController extends Controller
 
     public function done(ExamSet $exam)
     {
-        $this->authorize('view', $exam);
+        Gate::authorize('view', $exam);
 
         $session = $this->getPracticeSession($exam);
 
         if (! $session) {
             return redirect()->route('practice.start', $exam);
         }
-        $this->authorize('delete', $session);
+        Gate::authorize('delete', $session);
 
         $session->delete();
 
@@ -176,10 +177,10 @@ class PracticeController extends Controller
 
     public function next(ExamSet $exam)
     {
-        $this->authorize('view', $exam);
+        Gate::authorize('view', $exam);
 
         $session = $this->getPracticeSession($exam);
-        $this->authorize('view', $session);
+        Gate::authorize('view', $session);
 
         if ($session->question_index >= $session->question_count - 1) {
             return redirect()->route('practice.done', $exam);
@@ -194,10 +195,10 @@ class PracticeController extends Controller
 
     public function previous(ExamSet $exam)
     {
-        $this->authorize('view', $exam);
+        Gate::authorize('view', $exam);
 
         $session = $this->getPracticeSession($exam);
-        $this->authorize('view', $session);
+        Gate::authorize('view', $session);
 
         if ($session->question_index == 0) {
             return redirect()->route('practice.review', $exam);
