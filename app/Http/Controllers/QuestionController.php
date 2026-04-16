@@ -198,7 +198,7 @@ class QuestionController extends Controller
 
         $question = Question::find($answer->question->id);
 
-        $this->validate($request, [
+        $request->validate([
             'confirm' => 'string',
         ]);
 

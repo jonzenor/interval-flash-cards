@@ -51,7 +51,7 @@ class TestController extends Controller
 
         $this->authorize('view', $set);
 
-        $this->validate($request, [
+        $request->validate([
             'number_questions' => 'required|integer|max:'.$set->questions->count(),
         ]);
 
@@ -224,7 +224,7 @@ class TestController extends Controller
             return redirect()->route('tests');
         }
 
-        $this->validate($request, [
+        $request->validate([
             'question' => 'required|integer',
             'order' => 'required|string',
         ]);
