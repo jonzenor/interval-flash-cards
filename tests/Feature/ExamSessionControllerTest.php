@@ -11,7 +11,7 @@ use Tests\TestCase;
 class ExamSessionControllerTest extends TestCase
 {
     /** @test */
-    public function justAttainedMasteryLevel_returns_true() {
+    public function justAttainedMasteryLevel_returns_true(): void {
         Config::set('test.grade_familiar', 2);
         Config::set('test.add_score', 1);
 
@@ -23,7 +23,7 @@ class ExamSessionControllerTest extends TestCase
     }
 
     /** @test */
-    public function scoreIsMasteryLevel_returns_true_for_familiar() {
+    public function scoreIsMasteryLevel_returns_true_for_familiar(): void {
         Config::set('test.grade_familiar', 2);
 
         $controller = new ExamSessionController();
@@ -34,7 +34,7 @@ class ExamSessionControllerTest extends TestCase
     }
 
     /** @test */
-    public function calculateUpdatedMastery_returns_results_for_familiar_with_bonus_points() {
+    public function calculateUpdatedMastery_returns_results_for_familiar_with_bonus_points(): void {
         Config::set('test.grade_apprentice', 1);
         Config::set('test.grade_familiar', 2);
         Config::set('test.add_score', 1);

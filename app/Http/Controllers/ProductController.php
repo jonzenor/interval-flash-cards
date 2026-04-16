@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Gate;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductDetailsRequest;
@@ -14,7 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny', Product::class);
+        Gate::authorize('viewAny', Product::class);
 
         $products = Product::all();
 
@@ -28,7 +29,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', Product::class);
+        Gate::authorize('create', Product::class);
 
         return view('product.create');
     }
@@ -38,7 +39,7 @@ class ProductController extends Controller
      */
     public function store(ProductDetailsRequest $request)
     {
-        $this->authorize('create', Product::class);
+        Gate::authorize('create', Product::class);
 
         $validated = StandardizeProductFormData::execute($request);
 
@@ -60,7 +61,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $this->authorize('update', $product);
+        Gate::authorize('update', $product);
 
         return view('product.edit')->with([
             'product' => $product,
@@ -72,7 +73,7 @@ class ProductController extends Controller
      */
     public function update(ProductDetailsRequest $request, Product $product)
     {
-        $this->authorize('update', $product);
+        Gate::authorize('update', $product);
 
         $validated = StandardizeProductFormData::execute($request);
         

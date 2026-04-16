@@ -37,7 +37,7 @@ class RequestNewInsightFromAI
                             config('personalities.context') . '\n' .
                             config('personalities.format_give_insight') . '\n' .
                             $personality['persona'] . '\n' .
-                            $personality['tone'] . '\n'
+                            $personality['tone'] . '\n',
                     ],
                     [
                         'role' => 'user',
@@ -46,7 +46,7 @@ class RequestNewInsightFromAI
                             '\nExam Description: ' . $question->set->description .
                             '\nQuestion Text: ' . $question->text .
                             '\n' . $answers .
-                            $authorText
+                            $authorText,
                     ],
                 ],
             ]);

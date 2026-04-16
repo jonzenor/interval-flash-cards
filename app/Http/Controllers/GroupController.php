@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Gate;
 use Alert;
 use App\Http\Requests\GroupQuestionRequest;
 use App\Http\Requests\GroupSettingsRequest;
@@ -28,7 +29,7 @@ class GroupController extends Controller
      */
     public function store(GroupSettingsRequest $request, Set $set)
     {
-        $this->authorize('update', $set);
+        Gate::authorize('update', $set);
 
         $group = new Group;
         $group->set_id = $set->id;
@@ -43,7 +44,7 @@ class GroupController extends Controller
 
     public function deleteQuestion(Group $group, Question $question)
     {
-        $this->authorize('delete', $group);
+        Gate::authorize('delete', $group);
 
         return view('group.delete')->with([
             'group' => $group,
@@ -53,7 +54,7 @@ class GroupController extends Controller
 
     public function removeQuestion(Request $request, Group $group, Question $question)
     {
-        $this->authorize('delete', $group);
+        Gate::authorize('delete', $group);
         $user = $this->getAuthedUser();
 
         DB::table('user_question')->where('question_id', $question->id)->delete();
@@ -67,7 +68,7 @@ class GroupController extends Controller
      */
     public function show(Group $group)
     {
-        $this->authorize('update', $group);
+        Gate::authorize('update', $group);
 
         $questions = Question::where('group_id', $group->id)->get();
 
@@ -79,7 +80,7 @@ class GroupController extends Controller
 
     public function storeQuestions(Request $request, Group $group)
     {
-        $this->authorize('update', $group);
+        Gate::authorize('update', $group);
         $user = $this->getAuthedUser();
         $numQuestions = $group->set->questions->count();
 
@@ -119,7 +120,7 @@ class GroupController extends Controller
 
     public function editQuestion(Group $group, Question $question)
     {
-        $this->authorize('update', $group);
+        Gate::authorize('update', $group);
 
         return view('group.edit')->with([
             'group' => $group,
@@ -129,7 +130,7 @@ class GroupController extends Controller
 
     public function updateQuestion(GroupQuestionRequest $request, Group $group, Question $question)
     {
-        $this->authorize('update', $group);
+        Gate::authorize('update', $group);
 
         $answer = Answer::where('question_id', $question->id)->first();
 
@@ -161,7 +162,7 @@ class GroupController extends Controller
      */
     public function update(GroupSettingsRequest $request, Group $group)
     {
-        $this->authorize('update', $group);
+        Gate::authorize('update', $group);
 
         $validated = $request->validated();
         $group->update($validated);

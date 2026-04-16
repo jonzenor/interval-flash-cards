@@ -13,8 +13,6 @@ use App\Models\User;
 use Carbon\Carbon;
 use OpenAI\Laravel\Facades\OpenAI;
 
-
-
 class SendConversationToInstructor implements ShouldQueue
 {
     use Queueable;
@@ -40,11 +38,10 @@ class SendConversationToInstructor implements ShouldQueue
         $personality = GetAIPersonality::execute($this->conversation->insight->ai_generated);
         $question = $this->conversation->insight->question;
         $answers = FormatAnswersForAI::execute($question);
-        $dialogMessages = array();
+        $dialogMessages = [];
         $users[$this->user->id] = $this->user->name;
 
         foreach ($this->conversation->dialogs as $dialog) {
-
             if ($dialog->user_id && !isset($users[$dialog->user_id])) {
                 $thisUser = User::find($dialog->user_id)->first();
                 $users[$thisUser->id] = $thisUser->name;
@@ -71,13 +68,13 @@ class SendConversationToInstructor implements ShouldQueue
                     config('personalities.context') . '\n' .
                     config('personalities.format_have_dialog') . '\n' .
                     $personality['persona'] . '\n' .
-                    $personality['tone'] . '\n'
+                    $personality['tone'] . '\n',
             ],
             [
                 'role' => 'user',
                 'content' =>
                     'Exam: ' . $question->set->name .
-                    '\nExam Description: ' . $question->set->description
+                    '\nExam Description: ' . $question->set->description,
             ],
             [
                 'role' => 'assistant',
@@ -110,7 +107,8 @@ class SendConversationToInstructor implements ShouldQueue
         }
     }
 
-    public function ContactAI($messages) {
+    public function ContactAI($messages)
+    {
         try {
             if (config('personalities.model') == 'none') {
                 return GenerateFakeAIResponse::execute();

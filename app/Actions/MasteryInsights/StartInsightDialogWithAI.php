@@ -33,13 +33,13 @@ class StartInsightDialogWithAI
                             config('personalities.context') . '\n' .
                             config('personalities.format_start_dialog') . '\n' .
                             $personality['persona'] . '\n' .
-                            $personality['tone'] . '\n'
+                            $personality['tone'] . '\n',
                     ],
                     [
                         'role' => 'user',
                         'content' =>
                             'Exam: ' . $question->set->name .
-                            '\nExam Description: ' . $question->set->description
+                            '\nExam Description: ' . $question->set->description,
                     ],
                     [
                         'role' => 'user',

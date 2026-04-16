@@ -27,8 +27,8 @@ class ExamConfiguration extends Component
         $user = auth()->user();
         $lessonId = $this->selectedLessonId ? (int) $this->selectedLessonId : null;
         $this->maxQuestions = CalculateUsersMaxAvailableQuestions::execute(
-            $user, 
-            $this->examSet, 
+            $user,
+            $this->examSet,
             $lessonId
         );
         $this->questionCount = ($this->maxQuestions < 10) ? $this->maxQuestions : 10;

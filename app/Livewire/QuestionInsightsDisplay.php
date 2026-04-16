@@ -17,12 +17,14 @@ class QuestionInsightsDisplay extends Component
     public $insights = [];
     private $personalities = [];
 
-    public function mount(Question $question) {
+    public function mount(Question $question)
+    {
         $this->question = $question;
         $this->getInsights();
     }
 
-    public function summon(Question $question, $id) {
+    public function summon(Question $question, $id)
+    {
         $this->question = $question;
         $response = RequestNewInsightFromAI::execute($question, $id);
 
@@ -36,9 +38,10 @@ class QuestionInsightsDisplay extends Component
         }
     }
 
-    public function getInsights() {
-        $insights = array();
-        $personalities = array();
+    public function getInsights()
+    {
+        $insights = [];
+        $personalities = [];
 
         for ($i = 0; $i <= config('personalities.ai_count'); $i ++) {
             if ($i == 0) {
@@ -63,7 +66,7 @@ class QuestionInsightsDisplay extends Component
 
     public function render()
     {
-        $personalities = array();
+        $personalities = [];
         $this->getInsights();
 
         return view('livewire.question-insights-display', [
