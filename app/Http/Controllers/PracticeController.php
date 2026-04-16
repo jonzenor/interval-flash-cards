@@ -48,7 +48,7 @@ class PracticeController extends Controller
             'filter' => 'required|string|min:1|max:32',
         ]);
 
-        $questionsArray = array();
+        $questionsArray = [];
 
         switch ($request->filter) {
             case 'all':

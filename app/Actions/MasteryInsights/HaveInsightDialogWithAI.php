@@ -15,7 +15,7 @@ class HaveInsightDialogWithAI
         $personality = GetAIPersonality::execute($conversation->insight->ai_generated);
         $question = $conversation->insight->question;
         $answers = FormatAnswersForAI::execute($question);
-        $dialogMessages = array();
+        $dialogMessages = [];
         $users[auth()->id()] = auth()->user()->name;
 
         foreach ($conversation->dialogs as $dialog) {

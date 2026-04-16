@@ -38,7 +38,7 @@ class SendConversationToInstructor implements ShouldQueue
         $personality = GetAIPersonality::execute($this->conversation->insight->ai_generated);
         $question = $this->conversation->insight->question;
         $answers = FormatAnswersForAI::execute($question);
-        $dialogMessages = array();
+        $dialogMessages = [];
         $users[$this->user->id] = $this->user->name;
 
         foreach ($this->conversation->dialogs as $dialog) {

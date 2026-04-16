@@ -18,7 +18,7 @@ class QuestionInsightsEditor extends Component
 {
     public ?Insight $authorInsight = null;
     public Question $question;
-    public $instructorInsights = array();
+    public $instructorInsights = [];
     public $personalities = [];
 
     #[Validate('string|required')]

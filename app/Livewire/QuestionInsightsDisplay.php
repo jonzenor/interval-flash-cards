@@ -40,8 +40,8 @@ class QuestionInsightsDisplay extends Component
 
     public function getInsights()
     {
-        $insights = array();
-        $personalities = array();
+        $insights = [];
+        $personalities = [];
 
         for ($i = 0; $i <= config('personalities.ai_count'); $i ++) {
             if ($i == 0) {
@@ -66,7 +66,7 @@ class QuestionInsightsDisplay extends Component
 
     public function render()
     {
-        $personalities = array();
+        $personalities = [];
         $this->getInsights();
 
         return view('livewire.question-insights-display', [
