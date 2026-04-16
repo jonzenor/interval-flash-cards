@@ -13,9 +13,13 @@ class Insight extends Model
 */
     use HasFactory;
 
-    protected $casts = [
-        'ai_personality' => 'integer',
-    ];
+
+    protected function casts(): array
+    {
+        return [
+            'ai_personality' => 'integer',
+        ];
+    }
 
     public function question(): BelongsTo
     {
