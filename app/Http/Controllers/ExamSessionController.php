@@ -289,7 +289,7 @@ class ExamSessionController extends Controller
                 if ($answer->correct && ($normalizedAnswer[$answer->id] == 1)) {
                     $correct += 1;
                     $gotRight = 1;
-                } else if (!$answer->correct && ($normalizedAnswer[$answer->id] == 1)) {
+                } elseif (!$answer->correct && ($normalizedAnswer[$answer->id] == 1)) {
                     $correct -= 1;
                     $gotRight = 0;
                 }

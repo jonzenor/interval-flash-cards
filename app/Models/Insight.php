@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Insight extends Model
 {
-    /** @use HasFactory<\Database\Factories\InsightFactory> */
+    /**
+ * @use HasFactory<\Database\Factories\InsightFactory>
+*/
     use HasFactory;
 
     protected $casts = [

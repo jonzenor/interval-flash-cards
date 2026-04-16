@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Dialog extends Model
 {
-    /** @use HasFactory<\Database\Factories\DialogFactory> */
+    /**
+ * @use HasFactory<\Database\Factories\DialogFactory>
+*/
     use HasFactory;
 
     protected $fillable = [

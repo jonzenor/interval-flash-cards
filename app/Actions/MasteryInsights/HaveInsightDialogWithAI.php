@@ -19,7 +19,6 @@ class HaveInsightDialogWithAI
         $users[auth()->id()] = auth()->user()->name;
 
         foreach ($conversation->dialogs as $dialog) {
-
             if ($dialog->user_id && !isset($users[$dialog->user_id])) {
                 $thisUser = User::find($dialog->user_id)->first();
                 $users[$thisUser->id] = $thisUser->name;
@@ -46,13 +45,13 @@ class HaveInsightDialogWithAI
                     config('personalities.context') . '\n' .
                     config('personalities.format_have_dialog') . '\n' .
                     $personality['persona'] . '\n' .
-                    $personality['tone'] . '\n'
+                    $personality['tone'] . '\n',
             ],
             [
                 'role' => 'user',
                 'content' =>
                     'Exam: ' . $question->set->name .
-                    '\nExam Description: ' . $question->set->description
+                    '\nExam Description: ' . $question->set->description,
             ],
             [
                 'role' => 'assistant',

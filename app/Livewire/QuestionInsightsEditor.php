@@ -25,7 +25,8 @@ class QuestionInsightsEditor extends Component
     public string $insight_text = '';
 
 
-    public function mount(Question $question) {
+    public function mount(Question $question)
+    {
         $this->question = $question;
         $this->authorInsight = $question->insights->whereStrict('ai_generated', 0)->first();
         $this->insight_text = $this->authorInsight?->insight_text ?? '';
@@ -33,7 +34,8 @@ class QuestionInsightsEditor extends Component
         $this->instructorInsights = GetInstructorInsights::execute($question);
     }
 
-    public function save() {
+    public function save()
+    {
         $this->validate();
 
         $this->authorInsight = RecordInsightResponse::execute($this->question, 0, $this->insight_text);
@@ -42,7 +44,8 @@ class QuestionInsightsEditor extends Component
         $this->reloadComponent($this->question);
     }
 
-    public function deleteInsight(Question $question, $insightId) {
+    public function deleteInsight(Question $question, $insightId)
+    {
         $insight = Insight::find($insightId);
         $this->question = $question;
 
@@ -57,7 +60,8 @@ class QuestionInsightsEditor extends Component
         $this->reloadComponent($question);
     }
 
-    public function reloadComponent(Question $question) {
+    public function reloadComponent(Question $question)
+    {
         $this->mount($question);
 
         // $this->dispatch('refresh-the-component');

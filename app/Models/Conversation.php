@@ -9,13 +9,15 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Conversation extends Model
 {
-    /** @use HasFactory<\Database\Factories\ConversationFactory> */
+    /**
+ * @use HasFactory<\Database\Factories\ConversationFactory>
+*/
     use HasFactory;
 
     protected $fillable = [
         'insight_id',
         'user_id',
-        'title'
+        'title',
     ];
 
     public function insight(): BelongsTo

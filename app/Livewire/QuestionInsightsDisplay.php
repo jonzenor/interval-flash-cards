@@ -17,12 +17,14 @@ class QuestionInsightsDisplay extends Component
     public $insights = [];
     private $personalities = [];
 
-    public function mount(Question $question) {
+    public function mount(Question $question)
+    {
         $this->question = $question;
         $this->getInsights();
     }
 
-    public function summon(Question $question, $id) {
+    public function summon(Question $question, $id)
+    {
         $this->question = $question;
         $response = RequestNewInsightFromAI::execute($question, $id);
 
@@ -36,7 +38,8 @@ class QuestionInsightsDisplay extends Component
         }
     }
 
-    public function getInsights() {
+    public function getInsights()
+    {
         $insights = array();
         $personalities = array();
 

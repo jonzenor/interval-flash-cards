@@ -24,13 +24,15 @@ class QuestionInsightsConversation extends Component
     public $textMessage = '';
     public $isProcessing = false;
 
-    public function mount($personality, Insight $insight) {
+    public function mount($personality, Insight $insight)
+    {
         $this->personality = $personality;
         $this->insight = $insight;
         $this->conversation = Conversation::where('insight_id', $insight->id)->first();
     }
 
-    public function createConversation(Insight $insight) {
+    public function createConversation(Insight $insight)
+    {
         $this->conversation = CreateInsightConversation::execute($insight);
 
         $response = StartInsightDialogWithAI::execute($this->conversation);
@@ -48,7 +50,8 @@ class QuestionInsightsConversation extends Component
         }
     }
 
-    public function SendMessage(Conversation $conversation) {
+    public function SendMessage(Conversation $conversation)
+    {
         if (trim($this->textMessage) == "") {
             $this->textMessage = "";
             return 0;
@@ -71,7 +74,8 @@ class QuestionInsightsConversation extends Component
         $this->dispatch('refresh-the-component');
     }
 
-    public function callInstructor(Conversation $conversation) {
+    public function callInstructor(Conversation $conversation)
+    {
         // $response = HaveInsightDialogWithAI::execute($conversation);
         // if ($response['success']) {
         //     $dialog = Dialog::create([
